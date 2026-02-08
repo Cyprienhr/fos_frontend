@@ -38,6 +38,22 @@ export default function AdminDashboard() {
   });
   const navigate = useNavigate();
 
+  // Auto-dismiss error messages after 3 seconds
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => setError(''), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
+  // Auto-dismiss success messages after 3 seconds
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => setSuccess(''), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
+
   useEffect(() => {
     const currentUser = getUser();
     if (!currentUser || currentUser.userType !== 'admin') {
@@ -221,6 +237,14 @@ export default function AdminDashboard() {
                     <div className="metric-card">
                       <h3>Approval Rate</h3>
                       <p className="metric-value">{metrics.approvalRate}%</p>
+                    </div>
+                    <div className="metric-card">
+                      <h3>Declined Rate</h3>
+                      <p className="metric-value">{metrics.declinedRate}%</p>
+                    </div>
+                    <div className="metric-card">
+                      <h3>Pending Rate</h3>
+                      <p className="metric-value">{metrics.pendingRate}%</p>
                     </div>
                     <div className="metric-card">
                       <h3>This Week</h3>

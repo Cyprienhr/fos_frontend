@@ -15,6 +15,22 @@ export default function FarmerDashboard() {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
+  // Auto-dismiss error messages after 3 seconds
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => setError(''), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
+  // Auto-dismiss success messages after 3 seconds
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => setSuccess(''), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
+
   useEffect(() => {
     const currentUser = getUser();
     if (!currentUser) {
